@@ -21,7 +21,7 @@ public class TCPClient1 {
                 bufReader.close();
             }
             catch(FileNotFoundException e){
-                linee[0] = "localhost";
+                linee[0] = "127.0.0.1";
                 linee[1] = "7777";
             }
 
