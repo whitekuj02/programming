@@ -7,7 +7,12 @@ import java.net.*;
 
 
 public class TLDDNS_com {
+    private final static HashMap <String, String> map = new HashMap<String, String>();
     public static void main(String[] args){
+        map.put("naver.com","125.209.222.141");
+        map.put("google.com","154.219.222.141");
+        map.put("daum.com","201.209.222.141");
+        //값추가
         try{
             DatagramSocket ds = new DatagramSocket(7071);//7071 TLDdns_com port
     
@@ -43,12 +48,13 @@ public class TLDDNS_com {
 
         @Override
         public void run(){
-            if(this.message.equals("naver.com")){
+            
+            if(map.containsKey(message) == true){
                 try{
                     System.out.println("send");	
                     DatagramSocket ds = new DatagramSocket();
 			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "125.209.222.141";
+			        String msg = map.get(message);
 			        byte[] bf = msg.getBytes();
                     int port_num = this.packet.getPort();					
 			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);

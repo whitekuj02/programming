@@ -7,7 +7,12 @@ import java.net.*;
 
 
 public class TLDDNS_kr {
+    private final static HashMap <String, String> map = new HashMap<String, String>();
     public static void main(String[] args){
+        map.put("yawon.kr","125.209.222.142");
+        map.put("gachon.ac.kr","135.205.232.142");
+        map.put("twitch.kr","125.55.221.121");
+        //값추가
         try{
             DatagramSocket ds = new DatagramSocket(7072);//7072 TLDdns_kr port
     
@@ -43,12 +48,13 @@ public class TLDDNS_kr {
 
         @Override
         public void run(){
-            if(this.message.equals("gachon.ac.kr")){
+            
+            if(map.containsKey(message) == true){
                 try{
                     System.out.println("send");	
                     DatagramSocket ds = new DatagramSocket();
 			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "125.209.222.141";
+			        String msg = map.get(message);
 			        byte[] bf = msg.getBytes();
                     int port_num = this.packet.getPort();					
 			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);

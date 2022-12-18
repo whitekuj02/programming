@@ -7,7 +7,12 @@ import java.net.*;
 
 
 public class TLDDNS_uk {
+    private final static HashMap <String, String> map = new HashMap<String, String>();
     public static void main(String[] args){
+        map.put("ioas.uk","143.2.22.15");
+        map.put("youtube.uk","172.39.252.134");
+        map.put("asdasd.uk","123.9.25.122");
+        //값추가
         try{
             DatagramSocket ds = new DatagramSocket(7074);//7074 TLDdns_uk port
     
@@ -43,12 +48,12 @@ public class TLDDNS_uk {
 
         @Override
         public void run(){
-            if(this.message.equals("gachon.ac.uk")){
+            if(map.containsKey(message) == true){
                 try{
                     System.out.println("send");	
                     DatagramSocket ds = new DatagramSocket();
 			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "125.209.222.143";
+			        String msg = map.get(message);
 			        byte[] bf = msg.getBytes();
                     int port_num = this.packet.getPort();					
 			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);

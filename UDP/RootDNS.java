@@ -7,6 +7,7 @@ import java.net.*;
 
 
 public class RootDNS {
+    private final static HashMap <String, String> map = new HashMap<String, String>();
     public static void main(String[] args){
         try{
             DatagramSocket ds = new DatagramSocket(7007);//7007 rootdns port
@@ -42,13 +43,18 @@ public class RootDNS {
         }
     
         public void run(){
+            map.put(".com","7071");
+            map.put(".kr","7072");
+            map.put(".net","7073");
+            map.put(".uk","7074");
+
+            
             //만약 .com TLDserver port 번호 보내주기
-            if(this.message.equals(".com")){
+            if(map.containsKey(message) == true){
                 try{
-                    //System.out.println("send");	
                     DatagramSocket ds = new DatagramSocket();
 			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "7071";
+			        String msg = map.get(message);
 			        byte[] bf = msg.getBytes();
                     int port_num = this.packet.getPort();					
 			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);
@@ -56,38 +62,11 @@ public class RootDNS {
                 }
                 catch(IOException e){}
             }
-            else if(this.message.equals(".kr")){
-                try{
-                    //System.out.println("send");	
+            else{
+                try{	
                     DatagramSocket ds = new DatagramSocket();
 			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "7072";
-			        byte[] bf = msg.getBytes();
-                    int port_num = this.packet.getPort();					
-			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);
-			        ds.send(dp);
-                }
-                catch(IOException e){}
-            }
-            else if(this.message.equals(".net")){
-                try{
-                    //System.out.println("send");	
-                    DatagramSocket ds = new DatagramSocket();
-			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "7073";
-			        byte[] bf = msg.getBytes();
-                    int port_num = this.packet.getPort();					
-			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);
-			        ds.send(dp);
-                }
-                catch(IOException e){}
-            }
-            else if(this.message.equals(".uk")){
-                try{
-                    //System.out.println("send");	
-                    DatagramSocket ds = new DatagramSocket();
-			        InetAddress ia = InetAddress.getByName("localhost");
-			        String msg = "7074";
+			        String msg = "0";
 			        byte[] bf = msg.getBytes();
                     int port_num = this.packet.getPort();					
 			        DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, port_num);
