@@ -20,12 +20,10 @@ public class UDPclient {
                 byte[] bf = msg.getBytes();					
                 DatagramPacket dp = new DatagramPacket(bf, bf.length, ia, 7077);
                 ds.send(dp);
-                //보내기
-    
+                
                 byte[] bf_receive = new byte[300];					
                 DatagramPacket dp_receive = new DatagramPacket(bf_receive, bf_receive.length);
                 ds.receive(dp_receive);
-                //받기
     
                 String a = new String(bf_receive);
                 String ip = a.trim();
